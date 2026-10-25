@@ -2,20 +2,10 @@
 
 > **AI-Powered, Voice-First Proactive Government Services Assistant for India**
 
-[![Status: Design & Prototype Specification](https://img.shields.io/badge/Status-Design%20%26%20Prototype%20Specification-amber.svg)](#project-status-and-contribution)
-[![Architecture: Voice--First AI](https://img.shields.io/badge/Architecture-Voice--First%20AI-blue.svg)](#proposed-solution)
-[![Interface: Realtime Hinglish](https://img.shields.io/badge/Interface-Realtime%20Hinglish-green.svg)](#core-features)
+[![Status: Design & Prototype Specification](https://img.shields.io/badge/Status-Design%20%26%20Prototype%20Specification-amber.svg)](#j-project-status-and-contribution)
+[![Architecture: Voice--First AI](https://img.shields.io/badge/Architecture-Voice--First%20AI-blue.svg)](#c-proposed-solution)
+[![Interface: Realtime Hinglish](https://img.shields.io/badge/Interface-Realtime%20Hinglish-green.svg)](#d-core-features)
 [![Documentation: TECH.md](https://img.shields.io/badge/Technical%20Docs-TECH.md-009688.svg)](TECH.md)
-
----
-
-## Navigation & Technical Documentation
-
-This document covers the **product vision, citizen use cases, conversational capabilities, and operational workflows** for Bharat Assist.
-
-For in-depth technical implementation specifications—including system architecture diagrams, database schemas, proposed REST and WebSocket API endpoints, voice streaming mechanics, setup guides, and security protocols—please refer directly to:
-
-👉 **[TECH.md](TECH.md) — Complete Technical & Architecture Documentation**
 
 ---
 
@@ -32,6 +22,15 @@ India's digital public infrastructure has expanded rapidly over the past decade 
 - **Linguistic Reality**: Everyday communication across Indian households occurs in fluid vernaculars and code-switched dialogues (such as **Hinglish**—Hindi interwoven with everyday English terms like *form*, *date of birth*, *licence*, *website*, and *portal*). Traditional automated telephone helplines rely on formal, rigid scripts that fail to understand natural colloquial phrasing.
 
 Bharat Assist bridges this divide by delivering a **proactive, natural spoken dialogue**. Instead of requiring a citizen to search unfamiliar websites, the system identifies life milestones—such as turning 18 years old—and conducts a simulated, natural voice conversation in Hinglish to explain what documents they qualify for, what papers they need, and where to apply officially.
+
+## Documentation
+
+| Guide | Contents |
+| :--- | :--- |
+| [Technical architecture](TECH.md) | System design, data schemas, API specifications, and implementation guidance |
+| [Core features](#d-core-features) | Planned product capabilities |
+| [Real-world use cases](#e-real-world-use-cases) | Example citizen scenarios and outcomes |
+| [Project roadmap](#i-project-roadmap) | Development phases and planned milestones |
 
 ---
 
