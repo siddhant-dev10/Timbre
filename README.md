@@ -1,37 +1,38 @@
-# Bharat Assist
+# Timbre
 
-> **AI-Powered, Voice-First Proactive Government Services Assistant for India**
+> **AI-Powered, Voice-First Government Services Assistant for India (Concept: Bharat Assist)**
 
-[![Status: Design & Prototype Specification](https://img.shields.io/badge/Status-Design%20%26%20Prototype%20Specification-amber.svg)](#j-project-status-and-contribution)
+[![Status: Frontend Milestone 1 Implemented](https://img.shields.io/badge/Status-Frontend%20Milestone%201%20Implemented-brightgreen.svg)](#j-project-status-and-contribution)
 [![Architecture: Voice--First AI](https://img.shields.io/badge/Architecture-Voice--First%20AI-blue.svg)](#c-proposed-solution)
-[![Interface: Realtime Hinglish](https://img.shields.io/badge/Interface-Realtime%20Hinglish-green.svg)](#d-core-features)
+[![Interface: Flutter Dashboard](https://img.shields.io/badge/Interface-Flutter%203.19+%20%2F%20Dart%203.3+-02569B.svg)](#d-core-features)
 [![Documentation: TECH.md](https://img.shields.io/badge/Technical%20Docs-TECH.md-009688.svg)](TECH.md)
+[![Frontend Guide: FRONTEND.md](https://img.shields.io/badge/Frontend%20Docs-FRONTEND.md-teal.svg)](FRONTEND.md)
 
 ---
 
 ## A. Project Introduction
 
-**Bharat Assist** is an AI-powered, voice-first public service assistant designed to proactively connect Indian citizens with statutory government documents, welfare schemes, and civic entitlements.
+**Timbre** is an AI-powered, voice-first public service assistant platform. **Bharat Assist** is the core product concept powering Timbre: a proactive civic AI assistant designed to connect Indian citizens with statutory government documents, welfare schemes, and civic entitlements through natural, code-switched Hinglish conversations.
 
 ### Why Voice-First Matters for India
 
-India's digital public infrastructure has expanded rapidly over the past decade through platforms like Aadhaar, DigiLocker, Parivahan Sewa, and the National Voter's Service Portal. However, millions of citizens still encounter steep barriers when attempting to access these benefits:
+India's digital public infrastructure has expanded rapidly through platforms like Aadhaar, DigiLocker, Parivahan Sewa, and the National Voter's Service Portal. However, millions of citizens still encounter steep barriers when attempting to access these benefits:
 
 - **The Digital Literacy Barrier**: Many citizens who own basic feature phones or shared family smartphones find multi-step web forms, CAPTCHA challenges, OTP flows, and multi-tier menu hierarchies intimidating.
 - **The Information Discovery Deficit**: Citizens often only learn about essential government schemes—such as voter registration, learner's driving licences, educational scholarships, or welfare pensions—months or years after they become eligible, frequently missing critical application windows.
 - **Linguistic Reality**: Everyday communication across Indian households occurs in fluid vernaculars and code-switched dialogues (such as **Hinglish**—Hindi interwoven with everyday English terms like *form*, *date of birth*, *licence*, *website*, and *portal*). Traditional automated telephone helplines rely on formal, rigid scripts that fail to understand natural colloquial phrasing.
 
-Bharat Assist bridges this divide by delivering a **proactive, natural spoken dialogue**. Instead of requiring a citizen to search unfamiliar websites, the system identifies life milestones—such as turning 18 years old—and conducts a simulated, natural voice conversation in Hinglish to explain what documents they qualify for, what papers they need, and where to apply officially.
+Timbre bridges this divide by delivering **proactive, natural spoken dialogue**. Instead of requiring a citizen to search unfamiliar websites, the system identifies life milestones—such as turning 18 years old—and conducts a simulated, natural voice conversation in Hinglish to explain what documents they qualify for, what papers they need, and where to apply officially.
 
 ## Documentation
 
 | Guide | Contents |
 | :--- | :--- |
-| [Technical architecture](TECH.md) | System design, data schemas, API specifications, and implementation guidance |
+| [Technical architecture](TECH.md) | System design, two-machine architecture, data schemas, API specifications, and implementation guidance |
 | [Frontend specification](FRONTEND.md) | Frontend implementation plan, folder structure, and UI/state architecture |
-| [Core features](#d-core-features) | Planned product capabilities |
-| [Real-world use cases](#e-real-world-use-cases) | Example citizen scenarios and outcomes |
-| [Project roadmap](#i-project-roadmap) | Development phases and planned milestones |
+| [Core features](#d-core-features) | Product capabilities categorized by implementation state |
+| [Real-world use cases](#e-real-world-use-cases) | Example citizen scenarios and conversational outcomes |
+| [Project roadmap](#i-project-roadmap) | Development phases and current milestone progress |
 
 ---
 
@@ -48,7 +49,7 @@ Navigating government services in India presents four recurring challenges for e
 
 ## C. Proposed Solution
 
-Bharat Assist introduces an **event-driven, conversational voice assistance model**:
+Timbre introduces an **event-driven, conversational voice assistance model**:
 
 ```
 [ Citizen Lifecycle Event (e.g., Citizen Turns 18) ]
@@ -57,56 +58,56 @@ Bharat Assist introduces an **event-driven, conversational voice assistance mode
          [ Eligibility Evaluation Engine ]
                         │
                         ▼
-      [ Deduplicated Simulated Outbound Call ]
+       [ Deduplicated Simulated Outbound Call ]
                         │
                         ▼
-    [ Real-Time Conversational Voice Session ]
-  ├── Conducted in natural, colloquial Hinglish
-  ├── Allows speech interruptions (barge-in) at any time
-  ├── Supports natural topic switching (e.g., Voter ID ⇄ Driving Licence)
-  └── Grounded strictly in verified official government data
+     [ Real-Time Conversational Voice Session ]
+   ├── Conducted in natural, colloquial Hinglish
+   ├── Allows speech interruptions (barge-in) at any time
+   ├── Supports natural topic switching (e.g., Voter ID ⇄ Driving Licence)
+   └── Grounded strictly in verified official government data
 ```
 
-By pairing lifecycle event detection with natural conversational voice intelligence, Bharat Assist transforms government service delivery from a **passive, pull-based search chore** into a **proactive, push-based civic advisory service**.
+By pairing lifecycle event detection with natural conversational voice intelligence, Timbre transforms government service delivery from a **passive, pull-based search chore** into a **proactive, push-based civic advisory service**.
 
 ---
 
-## D. Core Features
+## D. Core Features & Implementation Status
 
-The following matrix documents the core features of Bharat Assist. In strict accordance with the current repository status (which contains design specifications and documentation prior to code scaffolding), all features are marked with their actual implementation state:
+The following matrix documents the core features of Timbre, clearly identifying what is implemented in the repository, what is in active backend development on the ASUS laptop, and what is planned for subsequent phases:
 
 | # | Feature | Status | Description & Repository Evidence |
 | :-: | :--- | :---: | :--- |
-| **1** | **Synthetic Citizen Management** | **Planned** | Management of 100 fictional Indian citizen records with realistic demographic and regional attributes for safe simulation. |
-| **2** | **Age & Profile Updates** | **Planned** | Mechanisms to advance simulation dates or edit a fictional citizen's date of birth to trigger milestone events. |
-| **3** | **Age-Related Event Detection** | **Planned** | Event detection worker that identifies when a citizen crosses statutory milestones (e.g., reaching 18 years of age). |
-| **4** | **Government-Service Eligibility Evaluation** | **Planned** | Programmatic rule engine evaluating qualification across schemes (Voter ID, Learner's Licence, PAN verification). |
-| **5** | **Simulated Outbound-Call Triggering** | **Planned** | Dispatcher generating simulated voice calls to test devices or in-browser audio players upon milestone detection. |
-| **6** | **Natural Real-Time Hinglish Voice Conversations** | **Planned** | Low-latency speech-to-speech interaction supporting natural Hindi-English code-switching and cultural honorifics. |
-| **7** | **Interruption Handling & Turn-Taking** | **Planned** | Sub-second voice activity detection (barge-in) enabling callers to interrupt the AI naturally without desynchronization. |
-| **8** | **Government-Domain Topic Switching** | **Planned** | Context-preserving dialogue manager allowing callers to switch freely between government schemes in a single session. |
-| **9** | **Service Guidance (Aadhaar, Voter ID, Driving Licence)** | **Planned** | Plain-language guidance on application procedures, required supporting documents, and statutory fees. |
-| **10** | **Verified Information & Official Portal Retrieval** | **Planned** | Strict grounding in curated official government data sources (UIDAI, ECI, Parivahan) to prevent hallucinations. |
-| **11** | **Call Status, Transcripts, & Event History** | **Planned** | End-to-end audit logging of call connection status, spoken transcripts, latency telemetry, and resolution outcomes. |
-| **12** | **Flutter Administration Dashboard** | **Planned** | Unified administrative interface for inspecting citizen records, triggering simulations, and monitoring live call queues. |
-| **13** | **Error Handling & Duplicate-Event Prevention** | **Planned** | Idempotency key tracking and retry back-off policies ensuring no duplicate calls are generated for the same milestone. |
+| **1** | **Synthetic Citizen Management** | **Implemented (Frontend Demo)** | 100% fictional Indian citizen registry displayed in the Flutter console with search, filtering, and safety indicators (`frontend/lib/models/citizen.dart`). |
+| **2** | **Age & Profile Updates** | **Implemented (Frontend Demo)** | Reactive life-event simulation controls allowing operators to adjust citizen dates of birth (`frontend/lib/screens/simulation/simulation_screen.dart`). |
+| **3** | **Age-Related Event Detection** | **Implemented (Frontend Demo) / ASUS Backend In-Progress** | Detection of milestone transitions (e.g. crossing age 18 threshold `MILESTONE_AGE_18`) with automated job triggering. |
+| **4** | **Government-Service Eligibility Evaluation** | **Implemented (Frontend Demo) / ASUS Backend In-Progress** | Programmatic rule engine evaluating qualification across ECI Voter Registration Form 6, MoRTH Parivahan Learner's Licence, and PM-JAY (`frontend/lib/screens/eligibility/`). |
+| **5** | **Simulated Outbound-Call Triggering** | **Implemented (Frontend Demo)** | In-memory idempotent call queue manager generating simulated outbound voice jobs with deduplication keys (`frontend/lib/models/call_job.dart`). |
+| **6** | **Natural Real-Time Hinglish Voice Conversations** | **In Progress (ASUS AGY)** | Spoken dialogue integration using local Qwen through Ollama and Bolna.ai on the ASUS TUF laptop. |
+| **7** | **Interruption Handling & Turn-Taking** | **In Progress (ASUS AGY)** | Sub-second voice activity detection (barge-in) and turn-taking managed by Bolna.ai and the voice bridge. |
+| **8** | **Government-Domain Topic Switching** | **In Progress (ASUS AGY)** | Context-preserving dialogue manager allowing callers to switch freely between government schemes in a single session. |
+| **9** | **Service Guidance (Aadhaar, Voter ID, Driving Licence)** | **Implemented (Frontend Directory)** | Verified government scheme catalog with statutory fee tables, portal URLs, and application document checklists (`frontend/lib/screens/services/`). |
+| **10** | **Verified Information & Official Portal Retrieval** | **Planned (ASUS Knowledge Base)** | Grounded fact lookup from curated public records to prevent hallucinations during speech synthesis. |
+| **11** | **Call Status, Transcripts, & Event History** | **Implemented (Frontend Console)** | Call monitor displaying job queue states (`QUEUED`, `IN_PROGRESS`, `COMPLETED`), latency telemetry, and sample Hinglish transcript bubbles (`frontend/lib/screens/calls/`). |
+| **12** | **Flutter Administration Dashboard** | **Implemented (MacBook Air M5)** | Production-ready Flutter administrative console running on macOS Desktop and Chrome with responsive navigation rail, health pill, and theme (`frontend/lib/`). |
+| **13** | **Error Handling & Duplicate-Event Prevention** | **Implemented (Frontend) / Planned (DB)** | Deterministic idempotency key verification (`CALL_AGE18_<id>_<year>`) preventing duplicate call creation on repeated triggers. |
 
 > [!NOTE]
 > *Status Classification Guide*:
-> - **Implemented**: Fully written, tested, and verifiable in repository code.
-> - **In Progress**: Active code branches or partial implementations present.
-> - **Planned**: Architectural design, schema, and API specification documented, awaiting codebase scaffolding.
+> - **Implemented (Frontend Demo)**: Fully written, verified, and passing automated Flutter test suites locally via the isolated demo data provider.
+> - **In Progress (ASUS AGY)**: Active backend development on the ASUS TUF laptop (FastAPI, Ollama/Qwen, Bolna.ai).
+> - **Planned**: Architectural design and contract documented, awaiting joint integration.
 
 ---
 
 ## E. Real-World Use Cases
 
-The following concrete operational scenarios illustrate how Bharat Assist behaves across diverse citizen interactions:
+The following concrete operational scenarios illustrate how Timbre behaves across diverse citizen interactions:
 
 ### Use Case 1: Milestone Outreach (Citizen Reaches Age 18)
 - **Trigger**: The simulation clock advances or an administrator updates synthetic citizen Aarav Sharma's date of birth, crossing the 18-year statutory threshold.
 - **System Behaviour**: The backend eligibility engine detects the milestone, qualifies Aarav for Voter Registration (ECI Form 6) and a Learner's Driving Licence (Parivahan), creates an idempotent call job, and initiates a simulated outbound voice call.
-- **Expected Outcome**: The simulated phone rings. When answered, the assistant introduces itself transparently as an AI assistant from Bharat Assist, congratulates Aarav on turning 18, and informs him that he is now eligible to apply for his Voter ID and Learner's Licence.
+- **Expected Outcome**: The simulated phone rings. When answered, the assistant introduces itself transparently as an AI assistant from Timbre (Bharat Assist), congratulates Aarav on turning 18, and informs him that he is now eligible to apply for his Voter ID and Learner's Licence.
 
 ### Use Case 2: Fluid Cross-Service Topic Switching
 - **Trigger**: During a conversation regarding Aadhaar address update requirements, the citizen spontaneously asks: *"Achha, driving licence banwane ke liye test kahan dena hota hai?"*
@@ -142,7 +143,7 @@ The following concrete operational scenarios illustrate how Bharat Assist behave
 
 ## F. End-to-End Workflow
 
-The complete operational lifecycle of Bharat Assist unfolds in seven clear stages:
+The complete operational lifecycle of Timbre unfolds in seven clear stages:
 
 ```mermaid
 flowchart TD
@@ -166,9 +167,9 @@ flowchart TD
 
 ## G. Example Conversation
 
-The following dialogue illustrates a typical real-time conversation between Bharat Assist and a newly eligible fictional citizen:
+The following dialogue illustrates a typical real-time conversation between Timbre and a newly eligible fictional citizen:
 
-> **AI Assistant**: *"Namaste Aarav ji! Main Bharat Assist se bol raha hoon, ek automated AI government service sahayak. Aap 18 saal ke ho gaye hain, isliye main aapko badhai dene aur do zaroori sarkari dastavezon ke baare mein batane ke liye call kar raha hoon."*
+> **AI Assistant**: *"Namaste Aarav ji! Main Timbre se bol raha hoon, Bharat Assist automated AI government service sahayak. Aap 18 saal ke ho gaye hain, isliye main aapko badhai dene aur do zaroori sarkari dastavezon ke baare mein batane ke liye call kar raha hoon."*
 >
 > **Citizen (Aarav)**: *"Haan ji namaste. Kaunse dastavej?"*
 >
@@ -194,11 +195,11 @@ The following dialogue illustrates a typical real-time conversation between Bhar
 
 ## H. Prototype Boundaries & Responsible AI
 
-To ensure ethical design, transparency, and safety, Bharat Assist operates under explicit structural constraints:
+To ensure ethical design, transparency, and safety, Timbre operates under explicit structural constraints:
 
-- **100% Synthetic Records**: The system uses only 100 generated fictional citizen profiles. It does not store, process, or link to real citizen Personally Identifiable Information (PII).
-- **Simulated Outbound Calls**: All calls are simulated within a local test harness or browser audio player. The system does not dial live telephone numbers on the public switched telephone network (PSTN).
-- **No National Database Access**: Bharat Assist does not possess integration, access credentials, or connections to UIDAI Aadhaar, the National Population Register, or state databases.
+- **100% Synthetic Records**: The system uses only generated fictional citizen profiles. It does not store, process, or link to real citizen Personally Identifiable Information (PII).
+- **Simulated Outbound Calls**: All calls are simulated within a local test harness or in-app dashboard player. The system does not dial live telephone numbers on the public switched telephone network (PSTN).
+- **No National Database Access**: Timbre does not possess integration, access credentials, or connections to UIDAI Aadhaar, the National Population Register, or state databases.
 - **Independent Proof of Concept**: This project is an independent architectural prototype. It is **not** an official government service, is not endorsed by the Government of India, and is not affiliated with any ministry.
 - **Transparent AI Identity**: The voice assistant identifies itself as an automated AI system in its opening sentence to prevent caller confusion.
 - **Future Production Prerequisites**: Any eventual deployment over actual telecom networks will mandate explicit citizen opt-in consent, integration with authorized Telecom Commercial Communications Customer Preference Regulations (TCCCPR) DND registries, and formal statutory approvals.
@@ -209,28 +210,36 @@ To ensure ethical design, transparency, and safety, Bharat Assist operates under
 
 ```mermaid
 flowchart LR
-    P1["Phase 1\nPrototype Foundation"] --> P2["Phase 2\nVoice AI Integration"]
-    P2 --> P3["Phase 3\nValidation & Safety"]
-    P3 --> P4["Phase 4\nFuture Telecom Deployment"]
+    P1["Phase 1\nFrontend & Dashboard Milestone (Done)"] --> P2["Phase 2\nBackend & Local LLM Integration"]
+    P2 --> P3["Phase 3\nJoint Contract & Telemetry Validation"]
+    P3 --> P4["Phase 4\nPublic Scaling & Regional Languages"]
 ```
 
-### Phase 1: Prototype Foundation (Current Focus)
-- [x] Product vision, use case definitions, and conversational architecture (`README.md`).
+### Phase 1: Frontend & Administration Milestone (Completed on MacBook Air M5)
+- [x] Product vision and conversational architecture ([`README.md`](README.md)).
 - [x] Technical architecture, database schemas, and API design specifications ([`TECH.md`](TECH.md)).
-- [ ] Database schema creation for 7 core entities in Supabase / PostgreSQL.
-- [ ] Synthetic dataset generation containing 100 fictional Indian citizen records.
-- [ ] Rule-based eligibility engine for Voter ID and Learner's Licence services.
+- [x] Frontend architecture and engineering guide ([`FRONTEND.md`](FRONTEND.md)).
+- [x] Flutter application scaffolding under `frontend/` targeting macOS Desktop and Chrome.
+- [x] Administrative dashboard layout with NavigationRail and Material 3 accessible theme.
+- [x] Fictional citizen registry and detailed profile sheet (`frontend/lib/screens/citizens/`).
+- [x] Interactive milestone life-event simulator (crossing age 18 threshold) (`frontend/lib/screens/simulation/`).
+- [x] Scheme eligibility engine display (Voter ID Form 6, Parivahan Licence, PM-JAY) (`frontend/lib/screens/eligibility/`).
+- [x] Simulated outbound-call queue monitor with idempotency key tracking and Hinglish transcript inspector (`frontend/lib/screens/calls/`).
+- [x] Backend connectivity health indicator and dynamic host URL configuration (`frontend/lib/widgets/backend_health_pill.dart`).
+- [x] Automated unit and widget test suite with 100% pass rate (`flutter test`).
 
-### Phase 2: Voice Integration & Administration
-- [ ] Bidirectional WebSocket bridge for real-time speech-to-speech interaction.
-- [ ] Natural Hinglish system prompt engineering with domain guardrails.
-- [ ] Sub-second Voice Activity Detection (VAD) for natural interruption handling.
-- [ ] Flutter administrative dashboard for simulation control and call queue visualization.
+### Phase 2: Backend & Voice AI Integration (In Progress on ASUS TUF)
+- [ ] Python / FastAPI REST and WebSocket API gateway (`backend/`).
+- [ ] Local LLM integration using Ollama and Qwen for Hinglish conversational turn generation.
+- [ ] Voice pipeline integration using Bolna.ai for speech-to-speech interaction.
+- [ ] Relational persistence and schema migrations in PostgreSQL / Supabase.
+- [ ] Backend unit and integration test suite.
 
-### Phase 3: Validation, Testing & Safety Evals
-- [ ] Automated testing suite for age calculation boundaries and call deduplication.
-- [ ] Conversational safety evaluations (anti-hallucination, scam warnings, polite boundary refusals).
-- [ ] Audio latency profiling and transcript accuracy logging.
+### Phase 3: Contract Alignment, Integration & Observability
+- [ ] Codex coordination and validation of shared REST and WebSocket API contracts.
+- [ ] End-to-end integration tests between MacBook frontend and ASUS backend.
+- [ ] Real-time audio stream bridging and latency benchmarking.
+- [ ] Conversational safety evaluations (anti-hallucination guardrails, boundary enforcement).
 
 ### Phase 4: Future Telecom & Public Scale
 - [ ] Integration with Government of India's Project Bhashini for 22 scheduled regional languages.
@@ -243,12 +252,25 @@ flowchart LR
 ## J. Project Status and Contribution
 
 ### Current Repository Status
-Bharat Assist is currently in the **architectural design and prototype specification stage**. The repository contains comprehensive product documentation ([`README.md`](README.md)) and technical design blueprints ([`TECH.md`](TECH.md)). Source code scaffolding for the FastAPI backend, Supabase database, and Flutter frontend will follow according to the [Roadmap](#i-project-roadmap).
+Timbre's **Frontend Milestone 1** is fully implemented and verifiable in the `frontend/` directory on the `macbook-agy` branch. It runs completely standalone in local demo mode using synthetic data without requiring the backend server. The backend stack (FastAPI, Ollama/Qwen, Bolna.ai) is currently under active development on the ASUS TUF laptop. Controlled integration and merging into `main` will be coordinated via Codex once backend endpoints and shared contracts are confirmed.
 
-### How to Follow & Contribute
-- **Documentation First**: Review [`TECH.md`](TECH.md) to understand the planned system components, database schemas, and API specifications.
-- **Issue Tracking & Discussions**: Propose additional government scheme rules, regional language considerations, or conversational test scenarios via repository issues.
-- **No Production Release**: Please note that there are currently no release binaries, public Docker containers, or live telephone numbers available.
+### How to Run the Frontend Locally
+```bash
+# Clone the repository and navigate to the frontend directory
+cd frontend
+
+# Install Flutter dependencies
+flutter pub get
+
+# Run the test suite
+flutter test
+
+# Launch the administrative dashboard on macOS Desktop
+flutter run -d macos
+
+# Or launch in Google Chrome
+flutter run -d chrome
+```
 
 ### Licensing
 No license has been selected yet for this repository. All rights are reserved pending licensing determination. A formal license file will be added to the repository root once an open-source or permissive license is selected.
