@@ -28,6 +28,7 @@ Bharat Assist bridges this divide by delivering a **proactive, natural spoken di
 | Guide | Contents |
 | :--- | :--- |
 | [Technical architecture](TECH.md) | System design, data schemas, API specifications, and implementation guidance |
+| [Frontend specification](FRONTEND.md) | Frontend implementation plan, folder structure, and UI/state architecture |
 | [Core features](#d-core-features) | Planned product capabilities |
 | [Real-world use cases](#e-real-world-use-cases) | Example citizen scenarios and outcomes |
 | [Project roadmap](#i-project-roadmap) | Development phases and planned milestones |
