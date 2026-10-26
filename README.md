@@ -1,4 +1,4 @@
-# Bharat Assist
+# TIMBRE
 
 > **AI-Powered, Voice-First Proactive Government Services Assistant for India**
 
@@ -11,7 +11,7 @@
 
 ## Navigation & Technical Documentation
 
-This document covers the **product vision, citizen use cases, conversational capabilities, and operational workflows** for Bharat Assist.
+This document covers the **product vision, citizen use cases, conversational capabilities, and operational workflows** for TIMBRE.
 
 For in-depth technical implementation specifications—including system architecture diagrams, database schemas, proposed REST and WebSocket API endpoints, voice streaming mechanics, setup guides, and security protocols—please refer directly to:
 
@@ -21,7 +21,7 @@ For in-depth technical implementation specifications—including system architec
 
 ## A. Project Introduction
 
-**Bharat Assist** is an AI-powered, voice-first public service assistant designed to proactively connect Indian citizens with statutory government documents, welfare schemes, and civic entitlements.
+**TIMBRE** is an AI-powered, voice-first public service assistant designed to proactively connect Indian citizens with statutory government documents, welfare schemes, and civic entitlements.
 
 ### Why Voice-First Matters for India
 
@@ -31,7 +31,7 @@ India's digital public infrastructure has expanded rapidly over the past decade 
 - **The Information Discovery Deficit**: Citizens often only learn about essential government schemes—such as voter registration, learner's driving licences, educational scholarships, or welfare pensions—months or years after they become eligible, frequently missing critical application windows.
 - **Linguistic Reality**: Everyday communication across Indian households occurs in fluid vernaculars and code-switched dialogues (such as **Hinglish**—Hindi interwoven with everyday English terms like *form*, *date of birth*, *licence*, *website*, and *portal*). Traditional automated telephone helplines rely on formal, rigid scripts that fail to understand natural colloquial phrasing.
 
-Bharat Assist bridges this divide by delivering a **proactive, natural spoken dialogue**. Instead of requiring a citizen to search unfamiliar websites, the system identifies life milestones—such as turning 18 years old—and conducts a simulated, natural voice conversation in Hinglish to explain what documents they qualify for, what papers they need, and where to apply officially.
+TIMBRE bridges this divide by delivering a **proactive, natural spoken dialogue**. Instead of requiring a citizen to search unfamiliar websites, the system identifies life milestones—such as turning 18 years old—and conducts a simulated, natural voice conversation in Hinglish to explain what documents they qualify for, what papers they need, and where to apply officially.
 
 ---
 
@@ -48,7 +48,7 @@ Navigating government services in India presents four recurring challenges for e
 
 ## C. Proposed Solution
 
-Bharat Assist introduces an **event-driven, conversational voice assistance model**:
+TIMBRE introduces an **event-driven, conversational voice assistance model**:
 
 ```
 [ Citizen Lifecycle Event (e.g., Citizen Turns 18) ]
@@ -67,13 +67,13 @@ Bharat Assist introduces an **event-driven, conversational voice assistance mode
   └── Grounded strictly in verified official government data
 ```
 
-By pairing lifecycle event detection with natural conversational voice intelligence, Bharat Assist transforms government service delivery from a **passive, pull-based search chore** into a **proactive, push-based civic advisory service**.
+By pairing lifecycle event detection with natural conversational voice intelligence, TIMBRE transforms government service delivery from a **passive, pull-based search chore** into a **proactive, push-based civic advisory service**.
 
 ---
 
 ## D. Core Features
 
-The following matrix documents the core features of Bharat Assist. In strict accordance with the current repository status (which contains design specifications and documentation prior to code scaffolding), all features are marked with their actual implementation state:
+The following matrix documents the core features of TIMBRE. In strict accordance with the current repository status (which contains design specifications and documentation prior to code scaffolding), all features are marked with their actual implementation state:
 
 | # | Feature | Status | Description & Repository Evidence |
 | :-: | :--- | :---: | :--- |
@@ -101,12 +101,12 @@ The following matrix documents the core features of Bharat Assist. In strict acc
 
 ## E. Real-World Use Cases
 
-The following concrete operational scenarios illustrate how Bharat Assist behaves across diverse citizen interactions:
+The following concrete operational scenarios illustrate how TIMBRE behaves across diverse citizen interactions:
 
 ### Use Case 1: Milestone Outreach (Citizen Reaches Age 18)
 - **Trigger**: The simulation clock advances or an administrator updates synthetic citizen Aarav Sharma's date of birth, crossing the 18-year statutory threshold.
 - **System Behaviour**: The backend eligibility engine detects the milestone, qualifies Aarav for Voter Registration (ECI Form 6) and a Learner's Driving Licence (Parivahan), creates an idempotent call job, and initiates a simulated outbound voice call.
-- **Expected Outcome**: The simulated phone rings. When answered, the assistant introduces itself transparently as an AI assistant from Bharat Assist, congratulates Aarav on turning 18, and informs him that he is now eligible to apply for his Voter ID and Learner's Licence.
+- **Expected Outcome**: The simulated phone rings. When answered, the assistant introduces itself transparently as an AI assistant from TIMBRE, congratulates Aarav on turning 18, and informs him that he is now eligible to apply for his Voter ID and Learner's Licence.
 
 ### Use Case 2: Fluid Cross-Service Topic Switching
 - **Trigger**: During a conversation regarding Aadhaar address update requirements, the citizen spontaneously asks: *"Achha, driving licence banwane ke liye test kahan dena hota hai?"*
@@ -142,7 +142,7 @@ The following concrete operational scenarios illustrate how Bharat Assist behave
 
 ## F. End-to-End Workflow
 
-The complete operational lifecycle of Bharat Assist unfolds in seven clear stages:
+The complete operational lifecycle of TIMBRE unfolds in seven clear stages:
 
 ```mermaid
 flowchart TD
@@ -166,9 +166,9 @@ flowchart TD
 
 ## G. Example Conversation
 
-The following dialogue illustrates a typical real-time conversation between Bharat Assist and a newly eligible fictional citizen:
+The following dialogue illustrates a typical real-time conversation between TIMBRE and a newly eligible fictional citizen:
 
-> **AI Assistant**: *"Namaste Aarav ji! Main Bharat Assist se bol raha hoon, ek automated AI government service sahayak. Aap 18 saal ke ho gaye hain, isliye main aapko badhai dene aur do zaroori sarkari dastavezon ke baare mein batane ke liye call kar raha hoon."*
+> **AI Assistant**: *"Namaste Aarav ji! Main TIMBRE se bol raha hoon, ek automated AI government service sahayak. Aap 18 saal ke ho gaye hain, isliye main aapko badhai dene aur do zaroori sarkari dastavezon ke baare mein batane ke liye call kar raha hoon."*
 >
 > **Citizen (Aarav)**: *"Haan ji namaste. Kaunse dastavej?"*
 >
@@ -194,11 +194,11 @@ The following dialogue illustrates a typical real-time conversation between Bhar
 
 ## H. Prototype Boundaries & Responsible AI
 
-To ensure ethical design, transparency, and safety, Bharat Assist operates under explicit structural constraints:
+To ensure ethical design, transparency, and safety, TIMBRE operates under explicit structural constraints:
 
 - **100% Synthetic Records**: The system uses only 100 generated fictional citizen profiles. It does not store, process, or link to real citizen Personally Identifiable Information (PII).
 - **Simulated Outbound Calls**: All calls are simulated within a local test harness or browser audio player. The system does not dial live telephone numbers on the public switched telephone network (PSTN).
-- **No National Database Access**: Bharat Assist does not possess integration, access credentials, or connections to UIDAI Aadhaar, the National Population Register, or state databases.
+- **No National Database Access**: TIMBRE does not possess integration, access credentials, or connections to UIDAI Aadhaar, the National Population Register, or state databases.
 - **Independent Proof of Concept**: This project is an independent architectural prototype. It is **not** an official government service, is not endorsed by the Government of India, and is not affiliated with any ministry.
 - **Transparent AI Identity**: The voice assistant identifies itself as an automated AI system in its opening sentence to prevent caller confusion.
 - **Future Production Prerequisites**: Any eventual deployment over actual telecom networks will mandate explicit citizen opt-in consent, integration with authorized Telecom Commercial Communications Customer Preference Regulations (TCCCPR) DND registries, and formal statutory approvals.
@@ -243,7 +243,7 @@ flowchart LR
 ## J. Project Status and Contribution
 
 ### Current Repository Status
-Bharat Assist is currently in the **architectural design and prototype specification stage**. The repository contains comprehensive product documentation ([`README.md`](README.md)) and technical design blueprints ([`TECH.md`](TECH.md)). Source code scaffolding for the FastAPI backend, Supabase database, and Flutter frontend will follow according to the [Roadmap](#i-project-roadmap).
+TIMBRE is currently in the **architectural design and prototype specification stage**. The repository contains comprehensive product documentation ([`README.md`](README.md)) and technical design blueprints ([`TECH.md`](TECH.md)). Source code scaffolding for the FastAPI backend, Supabase database, and Flutter frontend will follow according to the [Roadmap](#i-project-roadmap).
 
 ### How to Follow & Contribute
 - **Documentation First**: Review [`TECH.md`](TECH.md) to understand the planned system components, database schemas, and API specifications.

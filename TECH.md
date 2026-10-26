@@ -1,4 +1,4 @@
-# Bharat Assist — Technical Architecture & Implementation Guide (TECH.md)
+# TIMBRE — Technical Architecture & Implementation Guide (TECH.md)
 
 > **Single Source of Truth for Technical Architecture, Data Schemas, APIs, and Engineering Specifications**
 
@@ -561,7 +561,7 @@ Retrieves the execution status, spoken transcripts, and telemetry for a simulate
     {
       "timestamp": "2026-10-21T09:30:10Z",
       "speaker": "AI_AGENT",
-      "transcript_segment": "Namaste Aarav ji! Main Bharat Assist se bol raha hoon..."
+      "transcript_segment": "Namaste Aarav ji! Main TIMBRE se bol raha hoon..."
     },
     {
       "timestamp": "2026-10-21T09:30:20Z",
@@ -654,7 +654,7 @@ sequenceDiagram
 
 ## H. Government Knowledge Retrieval
 
-To protect citizens from misinformation, hallucinated deadlines, or fraudulent third-party payment links, Bharat Assist enforces strict knowledge grounding.
+To protect citizens from misinformation, hallucinated deadlines, or fraudulent third-party payment links, TIMBRE enforces strict knowledge grounding.
 
 ### Curated Knowledge Base Schema
 Verified public service records are cataloged in `official_sources` with the following structure:
