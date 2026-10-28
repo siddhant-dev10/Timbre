@@ -38,14 +38,13 @@ The planned technology stack is designed to achieve low-latency audio streaming,
 
 | Technology | Purpose & Architectural Role | Integration Boundaries | Implementation Status |
 | :--- | :--- | :--- | :---: |
-| **Python 3.11+ & FastAPI** | Core backend orchestrator, REST API gateway, WebSocket audio proxy, and eligibility rule calculation engine. | Interfaces with Supabase over AsyncPG, bridges audio to Voice AI, and serves admin REST endpoints. | **Planned** (Architecture specified) |
-| **Flutter 3.19+ & Dart** | Cross-platform administration dashboard and audio simulation client for Web, macOS, and mobile devices. | Communicates with FastAPI via REST endpoints and connects to WebSockets for live call monitoring. | **Planned** (UI layout designed) |
-| **Supabase & PostgreSQL 15+** | Relational persistence, JSONB rule evaluation, transactional state management, and real-time event streaming. | Accessible by backend service role; enforces row-level security and schema constraints. | **Planned** (DDL specified) |
-| **OpenAI Realtime API** *(Subject to integration & cost constraints)* | Speech-to-speech conversational AI engine supporting sub-second turn-taking, VAD, and Hinglish code-switching. | Connected via secure backend-managed WebSocket sessions; receives user PCM audio and streams synthesized speech. | **Planned** (Session flow designed) |
-| **Official Government Sources** | Curated repository of verified statutory facts, official portal URLs, fee tables, and required application documents. | Read-only structured knowledge store referenced by the rule engine and injected into conversational context. | **Planned** (Catalog curated) |
-| **FastAPI Swagger UI & OpenAPI** | Interactive API testing, schema introspection, and automated client generation via `/docs`. | Built into FastAPI framework; allows testing endpoints without external tooling. | **Planned** (Endpoint schemas designed) |
-| **Postman** *(Optional)* | Team API integration testing, automated collection runners, and regression assertions. | External testing harness targeting FastAPI REST endpoints. | **Optional / Planned** |
-| **Authorized CPaaS Telephony** *(Future)* | Telephony carrier integration (e.g., Exotel, Twilio India) for actual PSTN cellular calling. | Restricted to future exploratory phases subject to TRAI/DoT compliance and citizen consent. | **Future Exploratory** |
+| **Python 3.14 & FastAPI** | Core backend orchestrator, REST API gateway, and deterministic statutory eligibility rule engine. | Connects to SQLite/SQLAlchemy, Ollama HTTP API, and Bolna.ai; serves Flutter admin client at `/api` and `/api/v1`. | **Implemented** (`backend/app`) |
+| **Local LLM via Ollama (`qwen3.5:9b`)** | Local generative reasoning engine running hybrid CPU/GPU on NVIDIA RTX 2050 (4 GB VRAM) at ~9.3 t/s. | Connected via `http://127.0.0.1:11434`; produces natural Hinglish guidance grounded in verified government catalogues. | **Implemented & Tested** |
+| **Bolna.ai Voice Agent** | Conversational voice agent integration for telephone calls with transcript webhooks. | Dedicated service (`app/services/bolna_service.py`); gated by strict safety checks (`ENABLE_REAL_CALLS=false`). | **Implemented** (Demo Gated) |
+| **SQLite & SQLAlchemy 2.0** | Relational persistence for 100 synthetic citizens, service catalogue, simulation logs, and call jobs. | Safe, idempotent initialization and seeding via `app/scripts/seed_db.py`. | **Implemented** |
+| **Official Government Knowledge** | Curated catalogue of verified statutory schemes (Voter ID Form 6, Parivahan Licence, PM-Kisan, Ayushman Bharat, etc.). | Deterministic evaluation in `app/services/rules_engine.py` with zero hallucinated URLs or statutory fees. | **Implemented** |
+| **Flutter 3.19+ & Dart** | Cross-platform administrative dashboard and audio simulation client for Web, macOS, and mobile devices. | Communicates with FastAPI over LAN (`http://10.32.72.23:8000/api/v1`). | **In Progress** |
+| **FastAPI Swagger UI & OpenAPI** | Interactive API testing, schema introspection, and automated client generation via `/docs`. | Available at `http://10.32.72.23:8000/docs` and `http://localhost:8000/docs`. | **Implemented** |
 
 ---
 

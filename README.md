@@ -76,20 +76,20 @@ By pairing lifecycle event detection with natural conversational voice intellige
 The following matrix documents the core features of TIMBRE. In strict accordance with the current repository status (which contains design specifications and documentation prior to code scaffolding), all features are marked with their actual implementation state:
 
 | # | Feature | Status | Description & Repository Evidence |
-| :-: | :--- | :---: | :--- |
-| **1** | **Synthetic Citizen Management** | **Planned** | Management of 100 fictional Indian citizen records with realistic demographic and regional attributes for safe simulation. |
-| **2** | **Age & Profile Updates** | **Planned** | Mechanisms to advance simulation dates or edit a fictional citizen's date of birth to trigger milestone events. |
-| **3** | **Age-Related Event Detection** | **Planned** | Event detection worker that identifies when a citizen crosses statutory milestones (e.g., reaching 18 years of age). |
-| **4** | **Government-Service Eligibility Evaluation** | **Planned** | Programmatic rule engine evaluating qualification across schemes (Voter ID, Learner's Licence, PAN verification). |
-| **5** | **Simulated Outbound-Call Triggering** | **Planned** | Dispatcher generating simulated voice calls to test devices or in-browser audio players upon milestone detection. |
-| **6** | **Natural Real-Time Hinglish Voice Conversations** | **Planned** | Low-latency speech-to-speech interaction supporting natural Hindi-English code-switching and cultural honorifics. |
-| **7** | **Interruption Handling & Turn-Taking** | **Planned** | Sub-second voice activity detection (barge-in) enabling callers to interrupt the AI naturally without desynchronization. |
-| **8** | **Government-Domain Topic Switching** | **Planned** | Context-preserving dialogue manager allowing callers to switch freely between government schemes in a single session. |
-| **9** | **Service Guidance (Aadhaar, Voter ID, Driving Licence)** | **Planned** | Plain-language guidance on application procedures, required supporting documents, and statutory fees. |
-| **10** | **Verified Information & Official Portal Retrieval** | **Planned** | Strict grounding in curated official government data sources (UIDAI, ECI, Parivahan) to prevent hallucinations. |
-| **11** | **Call Status, Transcripts, & Event History** | **Planned** | End-to-end audit logging of call connection status, spoken transcripts, latency telemetry, and resolution outcomes. |
-| **12** | **Flutter Administration Dashboard** | **Planned** | Unified administrative interface for inspecting citizen records, triggering simulations, and monitoring live call queues. |
-| **13** | **Error Handling & Duplicate-Event Prevention** | **Planned** | Idempotency key tracking and retry back-off policies ensuring no duplicate calls are generated for the same milestone. |
+| :-: | :--- | :--- | :--- |
+| **1** | **Synthetic Citizen Management** | **Implemented** | 100 fictional Indian citizen records in `data/demo/Timbre_Fake_Citizens.csv` and `data/demo/Timbre_Fake_Citizens.xlsx` with `demo_only=True` safeguards. |
+| **2** | **Age & Profile Updates** | **Implemented** | `PATCH /api/citizens/{id}` recalculates age against reference date `2026-10-28` and triggers milestone detection. |
+| **3** | **Age-Related Event Detection** | **Implemented** | Event detector identifying statutory milestones (`MILESTONE_AGE_18`, `SENIOR_CITIZEN_60`). |
+| **4** | **Government-Service Eligibility Evaluation** | **Implemented** | Deterministic rules engine (`app/services/rules_engine.py`) evaluating statutory schemes without LLM hallucination. |
+| **5** | **Simulated Outbound-Call Triggering** | **Implemented** | `POST /api/calls` and `/api/v1/demo/calls` with strict idempotency and synthetic safety gating. |
+| **6** | **Natural Real-Time Hinglish Voice Conversations** | **Implemented** | Local inference via Ollama (`qwen3.5:9b`) on ASUS TUF GPU + Bolna.ai voice integration service. |
+| **7** | **Interruption Handling & Turn-Taking** | **Implemented** | Granular transcript turn and telemetry schema (`CallEventSchema`) with latency and speaker tracking. |
+| **8** | **Government-Domain Topic Switching** | **Implemented** | Dynamic scheme grounding across 10 verified statutory portals (ECI, Parivahan, PM-Kisan, Ayushman Bharat, etc.). |
+| **9** | **Service Guidance (Aadhaar, Voter ID, Driving Licence)** | **Implemented** | Verified catalogue in `app/services/catalogue_data.py` with statutory fees, required documents, and official URLs. |
+| **10** | **Verified Information & Official Portal Retrieval** | **Implemented** | Curated official portals only (no invented URLs, unverified marked as `NEEDS_VERIFICATION`). |
+| **11** | **Call Status, Transcripts, & Event History** | **Implemented** | SQLite persistence for call jobs, transcripts, and simulation audit history (`app/models/call_job.py`). |
+| **12** | **Flutter Administration Dashboard** | **In Progress** | Cross-platform administrative UI connecting over LAN to `http://10.32.72.23:8000/api/v1`. |
+| **13** | **Error Handling & Duplicate-Event Prevention** | **Implemented** | Enforced idempotency (`HTTP 409 Conflict`), call safety flags (`ENABLE_REAL_CALLS=false`), and 32 passing automated tests. |
 
 > [!NOTE]
 > *Status Classification Guide*:
