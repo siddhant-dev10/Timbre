@@ -1,17 +1,21 @@
-# timbre
+# Timbre Flutter client
 
-A new Flutter project.
+The Flutter dashboard uses synthetic demo data by default. To connect it to the
+FastAPI server, obtain the ASUS's current LAN IP on the ASUS with
+`hostname -I`, confirm the backend is listening on port `8000`, then start the
+client with that verified address:
 
-## Getting Started
+```sh
+flutter run \
+  --dart-define=TIMBRE_BACKEND_URL=http://<ASUS_LAN_IP>:8000/api/v1 \
+  --dart-define=TIMBRE_DEMO_MODE=false
+```
 
-This project is a starting point for a Flutter application.
+The backend URL can also be changed from the app's Backend & Connectivity
+Settings. Build-time values provide the initial URL and mode; runtime settings
+remain available. Do not use `localhost` on the Mac to reach the ASUS, because
+it points back to the Mac itself.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The ASUS must be awake and on a reachable private network. Its backend should
+bind to the LAN interface on port `8000`; Ollama should remain bound to
+`127.0.0.1:11434`.
