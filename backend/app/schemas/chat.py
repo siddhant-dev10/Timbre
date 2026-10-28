@@ -13,6 +13,7 @@ class ChatRequest(BaseModel):
     message: str
     conversation_id: Optional[str] = None
     language_preference: Optional[str] = "Hinglish"  # Hindi, Hinglish, English
+    synthesize_voice: Optional[bool] = False
 
 
 class ChatResponse(BaseModel):
@@ -26,3 +27,4 @@ class ChatResponse(BaseModel):
         "Consult official portals for statutory application processing."
     )
     llm_model: str
+    audio_base64: Optional[str] = None

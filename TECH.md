@@ -40,11 +40,12 @@ The planned technology stack is designed to achieve low-latency audio streaming,
 | :--- | :--- | :--- | :---: |
 | **Python 3.14 & FastAPI** | Core backend orchestrator, REST API gateway, and deterministic statutory eligibility rule engine. | Connects to SQLite/SQLAlchemy, Ollama HTTP API, and Bolna.ai; serves Flutter admin client at `/api` and `/api/v1`. | **Implemented** (`backend/app`) |
 | **Local LLM via Ollama (`qwen3.5:9b`)** | Local generative reasoning engine running hybrid CPU/GPU on NVIDIA RTX 2050 (4 GB VRAM) at ~9.3 t/s. | Connected via `http://127.0.0.1:11434`; produces natural Hinglish guidance grounded in verified government catalogues. | **Implemented & Tested** |
+| **ElevenLabs Voice Synthesis** | High-fidelity neural TTS synthesizing natural spoken audio using custom **Timbre** voice. | Dedicated service (`app/services/elevenlabs_service.py`) supporting `eleven_multilingual_v2` for Hindi/Hinglish. | **Implemented** |
 | **Bolna.ai Voice Agent** | Conversational voice agent integration for telephone calls with transcript webhooks. | Dedicated service (`app/services/bolna_service.py`); gated by strict safety checks (`ENABLE_REAL_CALLS=false`). | **Implemented** (Demo Gated) |
 | **SQLite & SQLAlchemy 2.0** | Relational persistence for 100 synthetic citizens, service catalogue, simulation logs, and call jobs. | Safe, idempotent initialization and seeding via `app/scripts/seed_db.py`. | **Implemented** |
 | **Official Government Knowledge** | Curated catalogue of verified statutory schemes (Voter ID Form 6, Parivahan Licence, PM-Kisan, Ayushman Bharat, etc.). | Deterministic evaluation in `app/services/rules_engine.py` with zero hallucinated URLs or statutory fees. | **Implemented** |
-| **Flutter 3.19+ & Dart** | Cross-platform administrative dashboard and audio simulation client for Web, macOS, and mobile devices. | Communicates with FastAPI over LAN (`http://10.32.72.23:8000/api/v1`). | **In Progress** |
-| **FastAPI Swagger UI & OpenAPI** | Interactive API testing, schema introspection, and automated client generation via `/docs`. | Available at `http://10.32.72.23:8000/docs` and `http://localhost:8000/docs`. | **Implemented** |
+| **Flutter 3.19+ & Dart** | Cross-platform administrative dashboard and audio simulation client for Web, macOS, and mobile devices. | Communicates with FastAPI over LAN (`http://192.168.0.123:8000/api/v1`). | **In Progress** |
+| **FastAPI Swagger UI & OpenAPI** | Interactive API testing, schema introspection, and automated client generation via `/docs`. | Available at `http://192.168.0.123:8000/docs` and `http://localhost:8000/docs`. | **Implemented** |
 
 ---
 

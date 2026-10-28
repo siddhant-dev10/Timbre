@@ -12,17 +12,17 @@ This guide provides instructions for developers and evaluators running the Timbr
 flowchart LR
     Mac["MacBook Air M5 (macOS)\nFlutter Admin & Simulation Client"]
     WiFi(("Local Wi-Fi Network\n(Same Subnet)"))
-    Asus["ASUS TUF F15 (Arch Linux)\nFastAPI Backend + Ollama (Qwen 3.5 9B)\nLAN IP: 192.168.0.123:8000"]
+    Asus["ASUS TUF F15 (Arch Linux)\nFastAPI Backend + Ollama (Qwen 3.5 9B)\nLAN IP: 10.32.72.23:8000"]
 
     Mac <-->|Local Wi-Fi| WiFi
     WiFi <-->|Local Wi-Fi| Asus
-    Mac -->|REST & WS: http://192.168.0.123:8000/api/v1| Asus
+    Mac -->|REST & WS: http://10.32.72.23:8000/api/v1| Asus
 ```
 
-- **ASUS TUF Server LAN IP**: `192.168.0.123`
-- **Backend API Base URL**: `http://192.168.0.123:8000/api/v1`
-- **Interactive Swagger Docs**: `http://192.168.0.123:8000/docs`
-- **Health Endpoint**: `http://192.168.0.123:8000/health`
+- **ASUS TUF Server LAN IP**: `10.32.72.23` (or current Wi-Fi IP from `ip -br -4 addr show wlp45s0`)
+- **Backend API Base URL**: `http://10.32.72.23:8000/api/v1`
+- **Interactive Swagger Docs**: `http://10.32.72.23:8000/docs`
+- **Health Endpoint**: `http://10.32.72.23:8000/health`
 
 ---
 
@@ -33,10 +33,10 @@ Both machines must be connected to the same Wi-Fi router/subnet.
 From your MacBook terminal, verify network reachability:
 ```bash
 # 1. Ping the ASUS TUF server
-ping -c 3 192.168.0.123
+ping -c 3 10.32.72.23
 
 # 2. Test HTTP connectivity to the health endpoint
-curl -s http://192.168.0.123:8000/health
+curl -s http://10.32.72.23:8000/health
 ```
 
 Expected JSON response:
@@ -48,6 +48,7 @@ Expected JSON response:
   "database": {"status": "healthy", "details": "SQLite connected"},
   "local_llm": {"status": "healthy", "details": "Target: qwen3.5:9b (Installed: qwen3.5:9b...)"},
   "bolna_voice": {"status": "demo_simulation", "details": "Configured: False, Real Calls Enabled: False"},
+  "elevenlabs_tts": {"status": "credentials_pending", "details": "Provider: ElevenLabs, Custom Voice: Timbre..."},
   "real_calls_enabled": false
 }
 ```
@@ -61,13 +62,13 @@ In the Timbre Flutter repository on your MacBook, the backend endpoint is manage
 ### Option A: Via Runtime UI (Recommended)
 1. Launch the Flutter desktop app.
 2. In the top navigation bar, click on the **Backend Health Pill** (`Connected` / `Offline`).
-3. An **Endpoint Modal** opens allowing you to update the backend host address to `http://192.168.0.123:8000/api/v1` without rebuilding.
+3. An **Endpoint Modal** opens allowing you to update the backend host address to `http://10.32.72.23:8000/api/v1` without rebuilding.
 
 ### Option B: Static Configuration
 Edit `frontend/lib/core/config/app_config.dart`:
 ```dart
 class AppConfig {
-  static const String defaultBackendUrl = 'http://192.168.0.123:8000/api/v1';
+  static const String defaultBackendUrl = 'http://10.32.72.23:8000/api/v1';
   static String backendUrl = defaultBackendUrl;
   // ...
 }
@@ -104,11 +105,16 @@ flutter run -d chrome
    - Instant deterministic age recalculation (17 $\rightarrow$ 18) and milestone detection (`MILESTONE_AGE_18`).
 3. **Scheme Eligibility Inspector**:
    - Real-time statutory rule evaluation against verified schemes (Voter ID Form 6, Parivahan Learner's Licence, NSP Scholarship, PM-Kisan).
-4. **Local AI Conversational Q&A**:
+4. **Local AI Conversational Q&A & Voice Playback**:
    - Spoken dialogue chat powered by local Qwen 3.5 9B running on the ASUS TUF GPU.
+   - Text-to-speech audio synthesized using the custom **Timbre** voice on ElevenLabs (`/api/v1/voice/chat` or `/api/v1/voice/synthesize`).
    - Grounded strictly in official government data with verified portal URLs.
 5. **Call Queue & Audio Telemetry**:
    - Inspect simulated outbound calls, color-coded Hinglish transcripts, and VAD audio latency metrics.
+
+> [!IMPORTANT]
+> **Host Server Availability**:
+> The ASUS TUF laptop must remain **powered on, awake, and connected to the same Wi-Fi network** for the MacBook client to communicate with the FastAPI backend and local Qwen LLM. Ensure system sleep / lid close suspension is disabled while conducting demo sessions.
 
 ---
 

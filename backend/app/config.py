@@ -38,6 +38,13 @@ class Settings(BaseSettings):
     BOLNA_AGENT_ID: str = ""
     BOLNA_TIMEOUT_SECONDS: float = 30.0
 
+    # ElevenLabs Text-to-Speech Integration
+    ELEVENLABS_BASE_URL: str = "https://api.elevenlabs.io"
+    ELEVENLABS_API_KEY: str = ""
+    ELEVENLABS_VOICE_ID: str = ""
+    ELEVENLABS_TTS_MODEL_ID: str = "eleven_multilingual_v2"
+    ELEVENLABS_TIMEOUT_SECONDS: float = 30.0
+
     # Call Safety Control Flag
     # Hard safety invariant: Real outbound calls are strictly disabled by default.
     ENABLE_REAL_CALLS: bool = False

@@ -14,4 +14,5 @@ class HealthResponse(BaseModel):
     database: ComponentHealth
     local_llm: ComponentHealth
     bolna_voice: ComponentHealth
+    elevenlabs_tts: Optional[ComponentHealth] = None
     real_calls_enabled: bool = False

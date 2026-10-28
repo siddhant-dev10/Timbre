@@ -9,13 +9,13 @@ This document describes the REST API exposed by the ASUS TUF development server 
 ## 1. Server & Connectivity
 
 - **Localhost Base URL**: `http://127.0.0.1:8000` (or `http://localhost:8000`)
-- **ASUS LAN Base URL**: `http://192.168.0.123:8000` (or current local IP)
+- **ASUS LAN Base URL**: `http://10.32.72.23:8000` (or current local IP from `ip -br -4 addr show wlp45s0`)
 - **Supported API Prefixes**:
   - `/api` (Standard REST endpoints)
   - `/api/v1` (Flutter client versioned prefix)
 - **Interactive Documentation**:
-  - OpenAPI Swagger UI: `http://192.168.0.123:8000/docs`
-  - ReDoc: `http://192.168.0.123:8000/redoc`
+  - OpenAPI Swagger UI: `http://10.32.72.23:8000/docs`
+  - ReDoc: `http://10.32.72.23:8000/redoc`
 
 ### CORS Policy
 The backend permits requests from Flutter web and desktop development hosts (`http://localhost:*`, `http://127.0.0.1:*`, `http://192.168.0.*`, and `app://*`). Allowed origins are configurable via `ALLOWED_ORIGINS` in `.env`.
@@ -56,6 +56,10 @@ Returns system operational status, database connectivity, and local LLM / Bolna 
   "bolna_voice": {
     "status": "demo_simulation",
     "details": "Configured: false, Real Calls Enabled: false"
+  },
+  "elevenlabs_tts": {
+    "status": "credentials_pending",
+    "details": "Provider: ElevenLabs, Custom Voice: Timbre, Configured: false, Model: eleven_multilingual_v2"
   },
   "real_calls_enabled": false
 }
@@ -357,3 +361,91 @@ Content-Type: application/json
   "job_status": "COMPLETED"
 }
 ```
+
+---
+
+### 3.8 ElevenLabs Voice Synthesis & Spoken Dialogue
+
+#### 3.8.1 Voice Service Status
+```http
+GET /api/voice/status
+GET /api/v1/voice/status
+```
+Returns safe diagnostic health of the ElevenLabs TTS provider without revealing credentials.
+
+**Response `200 OK`**:
+```json
+{
+  "configured": true,
+  "status": "ready",
+  "provider": "ElevenLabs",
+  "voice_name": "Timbre",
+  "voice_id_set": true,
+  "voice_id": "your_custom_voice_id",
+  "model_id": "eleven_multilingual_v2",
+  "api_key_set": true
+}
+```
+
+#### 3.8.2 Direct Text-to-Speech Synthesis
+```http
+POST /api/voice/synthesize
+POST /api/v1/voice/synthesize
+Content-Type: application/json
+
+{
+  "text": "Namaste! Voter ID form 6 aavedan ke liye voters.eci.gov.in par login karein."
+}
+```
+**Response `200 OK`**:
+- `Content-Type: audio/mpeg`
+- Body: Binary MP3 audio stream for playback.
+
+#### 3.8.3 Conversational Spoken AI Chat
+```http
+POST /api/voice/chat
+POST /api/v1/voice/chat
+Content-Type: application/json
+
+{
+  "citizen_id": "CIT-0001",
+  "message": "Mujhe Voter ID card banwana hai, kaise karoon?",
+  "language_preference": "Hinglish"
+}
+```
+Executes full voice pipeline:
+1. Grounding schemes retrieved for citizen from statutory catalogue.
+2. Local Qwen 3.5 9B generates Hinglish guidance.
+3. ElevenLabs synthesizes spoken response using custom Timbre voice.
+4. Returns both transcript and MP3 audio stream / base64 payload.
+
+**Response `200 OK`**:
+```json
+{
+  "conversation_id": "conv-uuid-5678",
+  "citizen_id": "CIT-0001",
+  "answer": "Namaste Aarav ji! Voter ID ke liye aap ECI portal voters.eci.gov.in par Form 6 bhar sakte hain.",
+  "language": "Hinglish",
+  "audio_base64": "//uQZAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAA...",
+  "audio_format": "audio/mpeg",
+  "audio_url": "/api/v1/voice/audio/aud-a1b2c3d4e5f6",
+  "grounded_services": [
+    {
+      "service_code": "SVC-VOTER-ID",
+      "name": "Voter Registration (Form 6 - National Voters' Services Portal)",
+      "official_portal_url": "https://voters.eci.gov.in"
+    }
+  ],
+  "confidence_note": "Preliminary AI guidance based on verified official catalogue entries. Consult official portals for statutory application processing.",
+  "llm_model": "qwen3.5:9b",
+  "tts_provider": "ElevenLabs",
+  "voice_name": "Timbre"
+}
+```
+
+#### 3.8.4 Stream Synthesized Audio by ID
+```http
+GET /api/voice/audio/{audio_id}
+GET /api/v1/voice/audio/{audio_id}
+```
+Streams cached audio clip (`audio/mpeg`) directly for media players (`just_audio`, `audioplayers`, browser).

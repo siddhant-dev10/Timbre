@@ -4,6 +4,7 @@ from sqlalchemy import text
 from app.database.session import get_db
 from app.services.llm_service import llm_service
 from app.services.bolna_service import bolna_service
+from app.services.elevenlabs_service import elevenlabs_service
 from app.schemas.health import HealthResponse, ComponentHealth
 from app.config import settings
 
@@ -37,6 +38,15 @@ async def get_health(db: Session = Depends(get_db)):
         f"Real Calls Enabled: {bolna_info.get('real_calls_enabled')}"
     )
 
+    # 4. ElevenLabs Voice Synthesis check
+    elevenlabs_info = elevenlabs_service.check_health()
+    elevenlabs_status = "healthy" if elevenlabs_info.get("configured") else "credentials_pending"
+    elevenlabs_details = (
+        f"Provider: ElevenLabs, Custom Voice: Timbre, "
+        f"Configured: {elevenlabs_info.get('configured')}, "
+        f"Model: {elevenlabs_info.get('model_id')}"
+    )
+
     overall_status = "ok"
     if db_status != "healthy":
         overall_status = "error"
@@ -50,5 +60,6 @@ async def get_health(db: Session = Depends(get_db)):
         database=ComponentHealth(status=db_status, details=db_details),
         local_llm=ComponentHealth(status=llm_status, details=llm_details),
         bolna_voice=ComponentHealth(status=bolna_status, details=bolna_details),
+        elevenlabs_tts=ComponentHealth(status=elevenlabs_status, details=elevenlabs_details),
         real_calls_enabled=settings.ENABLE_REAL_CALLS
     )

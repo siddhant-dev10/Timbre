@@ -7,7 +7,7 @@ from app.database.session import engine, SessionLocal
 from app.database.base import Base
 from app.models.citizen import Citizen
 from app.scripts.seed_db import seed_database
-from app.api import health, citizens, services, chat, simulations, calls, webhooks
+from app.api import health, citizens, services, chat, simulations, calls, webhooks, voice
 
 
 @asynccontextmanager
@@ -58,6 +58,7 @@ for prefix in ["/api", "/api/v1"]:
     # Also support frontend convention /demo/calls
     app.include_router(calls.router, prefix=f"{prefix}/demo")
     app.include_router(webhooks.router, prefix=prefix)
+    app.include_router(voice.router, prefix=prefix)
 
 
 @app.get("/")

@@ -1,3 +1,4 @@
+import base64
 import json
 import uuid
 from typing import List, Dict, Any
@@ -9,6 +10,7 @@ from app.models.service_scheme import ServiceScheme
 from app.schemas.chat import ChatRequest, ChatResponse
 from app.schemas.service_scheme import ServiceSchemeResponse
 from app.services.llm_service import llm_service
+from app.services.elevenlabs_service import elevenlabs_service
 from app.services.rules_engine import evaluate_all_services
 from app.config import settings
 
@@ -155,6 +157,15 @@ async def chat_with_assistant(request: ChatRequest, db: Session = Depends(get_db
             )
         model_used = "catalogue-grounded-fallback"
 
+    # Optional speech synthesis with ElevenLabs
+    audio_base64 = None
+    if getattr(request, "synthesize_voice", False) and elevenlabs_service.is_configured():
+        try:
+            audio_bytes = await elevenlabs_service.synthesize_speech(text=answer)
+            audio_base64 = base64.b64encode(audio_bytes).decode("ascii")
+        except Exception:
+            pass
+
     return ChatResponse(
         conversation_id=conversation_id,
         citizen_id=citizen.id,
@@ -165,5 +176,6 @@ async def chat_with_assistant(request: ChatRequest, db: Session = Depends(get_db
             "Preliminary AI guidance based on verified official catalogue entries. "
             "Consult official portals for statutory application processing."
         ),
-        llm_model=model_used
+        llm_model=model_used,
+        audio_base64=audio_base64
     )

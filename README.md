@@ -82,14 +82,14 @@ The following matrix documents the core features of TIMBRE. In strict accordance
 | **3** | **Age-Related Event Detection** | **Implemented** | Event detector identifying statutory milestones (`MILESTONE_AGE_18`, `SENIOR_CITIZEN_60`). |
 | **4** | **Government-Service Eligibility Evaluation** | **Implemented** | Deterministic rules engine (`app/services/rules_engine.py`) evaluating statutory schemes without LLM hallucination. |
 | **5** | **Simulated Outbound-Call Triggering** | **Implemented** | `POST /api/calls` and `/api/v1/demo/calls` with strict idempotency and synthetic safety gating. |
-| **6** | **Natural Real-Time Hinglish Voice Conversations** | **Implemented** | Local inference via Ollama (`qwen3.5:9b`) on ASUS TUF GPU + Bolna.ai voice integration service. |
+| **6** | **Natural Real-Time Hinglish Voice Conversations** | **Implemented** | Local inference via Ollama (`qwen3.5:9b`) on ASUS TUF GPU + ElevenLabs TTS (custom Timbre voice) & Bolna telephony integration service. |
 | **7** | **Interruption Handling & Turn-Taking** | **Implemented** | Granular transcript turn and telemetry schema (`CallEventSchema`) with latency and speaker tracking. |
 | **8** | **Government-Domain Topic Switching** | **Implemented** | Dynamic scheme grounding across 10 verified statutory portals (ECI, Parivahan, PM-Kisan, Ayushman Bharat, etc.). |
 | **9** | **Service Guidance (Aadhaar, Voter ID, Driving Licence)** | **Implemented** | Verified catalogue in `app/services/catalogue_data.py` with statutory fees, required documents, and official URLs. |
 | **10** | **Verified Information & Official Portal Retrieval** | **Implemented** | Curated official portals only (no invented URLs, unverified marked as `NEEDS_VERIFICATION`). |
 | **11** | **Call Status, Transcripts, & Event History** | **Implemented** | SQLite persistence for call jobs, transcripts, and simulation audit history (`app/models/call_job.py`). |
-| **12** | **Flutter Administration Dashboard** | **In Progress** | Cross-platform administrative UI connecting over LAN to `http://10.32.72.23:8000/api/v1`. |
-| **13** | **Error Handling & Duplicate-Event Prevention** | **Implemented** | Enforced idempotency (`HTTP 409 Conflict`), call safety flags (`ENABLE_REAL_CALLS=false`), and 32 passing automated tests. |
+| **12** | **Flutter Administration Dashboard** | **In Progress** | Cross-platform administrative UI connecting over LAN to `http://192.168.0.123:8000/api/v1`. |
+| **13** | **Error Handling & Duplicate-Event Prevention** | **Implemented** | Enforced idempotency (`HTTP 409 Conflict`), call safety flags (`ENABLE_REAL_CALLS=false`), and 48 passing automated tests. |
 
 > [!NOTE]
 > *Status Classification Guide*:
