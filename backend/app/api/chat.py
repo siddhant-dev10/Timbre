@@ -131,7 +131,8 @@ async def chat_with_assistant(request: ChatRequest, db: Session = Depends(get_db
 
     llm_result = await llm_service.generate_response(
         prompt=user_prompt,
-        system_prompt=system_prompt
+        system_prompt=system_prompt,
+        conversation_id=conversation_id
     )
 
     if llm_result.get("success"):

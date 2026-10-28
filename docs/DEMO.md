@@ -10,7 +10,7 @@ This guide provides a structured walkthrough demonstrating the capabilities of T
 
 1. **Verify Backend Health & Network**:
    ```bash
-   curl http://10.32.72.23:8000/health
+   curl http://192.168.0.123:8000/health
    ```
    Ensure `status` is `ok`, `database` is `healthy`, and `local_llm` shows `healthy` with the local Qwen model.
 
@@ -19,7 +19,7 @@ This guide provides a structured walkthrough demonstrating the capabilities of T
    ```bash
    cd frontend && flutter run -d macos
    ```
-   Confirm the **Backend Health Pill** in the top navigation bar displays `Connected [10.32.72.23:8000]`.
+   Confirm the **Backend Health Pill** in the top navigation bar displays `Connected [192.168.0.123:8000]`.
 
 ---
 

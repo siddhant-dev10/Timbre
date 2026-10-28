@@ -55,3 +55,25 @@ def test_chat_invalid_citizen_id(client):
         }
     )
     assert res.status_code == 404
+
+
+def test_chat_multiturn_conversation_id(client):
+    with patch("app.services.llm_service.llm_service.generate_response", new_callable=AsyncMock) as mock_gen:
+        mock_gen.return_value = {
+            "success": True,
+            "response": "Haan, aapke documents verify hone par voter slip milegi.",
+            "model_used": "qwen3.5:9b"
+        }
+        res = client.post(
+            "/api/chat",
+            json={
+                "citizen_id": "CIT-0001",
+                "message": "Aur kya documents lagenge?",
+                "conversation_id": "conv-test-session-42",
+                "language_preference": "Hinglish"
+            }
+        )
+        assert res.status_code == 200
+        data = res.json()
+        assert data["conversation_id"] == "conv-test-session-42"
+        assert mock_gen.call_args.kwargs["conversation_id"] == "conv-test-session-42"

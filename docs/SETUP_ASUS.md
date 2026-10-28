@@ -13,7 +13,7 @@ This guide details the complete procedure for setting up, running, testing, and 
 - **CPU**: 11th Gen Intel® Core™ i5-11400H @ 2.70GHz (6 Cores / 12 Threads)
 - **GPU**: NVIDIA GeForce RTX 2050 Mobile (4 GB GDDR6 VRAM, CUDA compute capability 8.6)
 - **RAM**: 16 GB DDR4
-- **Local Wi-Fi LAN IP**: `10.32.72.23`
+- **Local Wi-Fi LAN IP**: `192.168.0.123` (Verify with `ip -br addr`)
 
 ---
 
@@ -55,7 +55,7 @@ Review key configuration variables in `.env`:
 ```ini
 HOST=0.0.0.0
 PORT=8000
-ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8080,http://127.0.0.1:3000,http://127.0.0.1:8080,app://*,http://10.32.72.23:8000
+ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8080,http://127.0.0.1:3000,http://127.0.0.1:8080,app://*,http://192.168.0.123:8000
 DATABASE_URL=sqlite:///./data/timbre.db
 REFERENCE_DATE=2026-10-28
 OLLAMA_BASE_URL=http://127.0.0.1:11434
@@ -129,13 +129,13 @@ The server binds to `0.0.0.0:8000` to allow access from other devices on your lo
 
 The Flutter administrative client running on your MacBook Air connects over the local Wi-Fi network:
 
-- **ASUS LAN Server Endpoint**: `http://10.32.72.23:8000/api/v1`
-- **Swagger Documentation**: `http://10.32.72.23:8000/docs`
-- **Health Check**: `http://10.32.72.23:8000/health`
+- **ASUS LAN Server Endpoint**: `http://192.168.0.123:8000/api/v1`
+- **Swagger Documentation**: `http://192.168.0.123:8000/docs`
+- **Health Check**: `http://192.168.0.123:8000/health`
 
 ### Testing Connection from macOS Terminal
 ```bash
-curl http://10.32.72.23:8000/health
+curl http://192.168.0.123:8000/health
 ```
 
 ---

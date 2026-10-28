@@ -9,16 +9,16 @@ This document describes the REST API exposed by the ASUS TUF development server 
 ## 1. Server & Connectivity
 
 - **Localhost Base URL**: `http://127.0.0.1:8000` (or `http://localhost:8000`)
-- **ASUS LAN Base URL**: `http://10.32.72.23:8000`
+- **ASUS LAN Base URL**: `http://192.168.0.123:8000` (or current local IP)
 - **Supported API Prefixes**:
   - `/api` (Standard REST endpoints)
   - `/api/v1` (Flutter client versioned prefix)
 - **Interactive Documentation**:
-  - OpenAPI Swagger UI: `http://10.32.72.23:8000/docs`
-  - ReDoc: `http://10.32.72.23:8000/redoc`
+  - OpenAPI Swagger UI: `http://192.168.0.123:8000/docs`
+  - ReDoc: `http://192.168.0.123:8000/redoc`
 
 ### CORS Policy
-The backend permits requests from Flutter web and desktop development hosts (`http://localhost:*`, `http://127.0.0.1:*`, `http://10.32.72.23:*`, and `app://*`). Allowed origins are configurable via `ALLOWED_ORIGINS` in `.env`.
+The backend permits requests from Flutter web and desktop development hosts (`http://localhost:*`, `http://127.0.0.1:*`, `http://192.168.0.*`, and `app://*`). Allowed origins are configurable via `ALLOWED_ORIGINS` in `.env`.
 
 ---
 

@@ -91,3 +91,30 @@ def test_get_call_job_by_id(client):
     get_res = client.get(f"/api/calls/{job_id}")
     assert get_res.status_code == 200
     assert get_res.json()["id"] == job_id
+
+
+def test_bolna_credential_redaction():
+    from app.services.bolna_service import bolna_service
+    health_info = bolna_service.check_health()
+    # Ensure raw secret keys are not present in health dict
+    assert "api_key" not in health_info
+    assert "BOLNA_API_KEY" not in str(health_info)
+
+
+def test_real_call_missing_credentials_handling():
+    import pytest
+    from app.services.bolna_service import BolnaIntegrationService
+    svc = BolnaIntegrationService()
+    svc.api_key = ""
+    svc.agent_id = ""
+    svc.enable_real_calls = True
+    with pytest.raises(RuntimeError, match="not configured"):
+        import asyncio
+        asyncio.run(svc.initiate_call(
+            citizen_id="REAL-123",
+            citizen_name="Test Citizen",
+            phone_number="+919876543210",
+            trigger_event="REAL_EVENT",
+            is_real_call_requested=True,
+            consent_confirmed=True
+        ))

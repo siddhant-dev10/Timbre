@@ -14,6 +14,8 @@ class OllamaService:
         self.model_name = settings.OLLAMA_MODEL
         self.timeout = settings.OLLAMA_TIMEOUT_SECONDS
         self.num_ctx = settings.OLLAMA_NUM_CTX
+        # Cache active conversation token contexts for ongoing multi-turn conversations
+        self.conversation_contexts: Dict[str, List[int]] = {}
 
     async def check_availability(self) -> Dict[str, Any]:
         """Checks if Ollama service is reachable and whether the target model is installed."""
@@ -53,7 +55,8 @@ class OllamaService:
         self,
         prompt: str,
         system_prompt: Optional[str] = None,
-        context: Optional[List[int]] = None
+        context: Optional[List[int]] = None,
+        conversation_id: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Sends generation request to Ollama with configurable context window.
@@ -70,6 +73,10 @@ class OllamaService:
                 "error": avail.get("error") or "Model not loaded",
                 "model_used": "none"
             }
+
+        # Retrieve prior context tokens for this conversation if available
+        if conversation_id and not context and conversation_id in self.conversation_contexts:
+            context = self.conversation_contexts[conversation_id]
 
         payload: Dict[str, Any] = {
             "model": self.model_name,
@@ -106,11 +113,15 @@ class OllamaService:
                         if not raw_response and lines:
                             raw_response = lines[-1].replace("*", "").replace('"', '').strip()
 
+                    ctx_tokens = data.get("context")
+                    if conversation_id and ctx_tokens:
+                        self.conversation_contexts[conversation_id] = ctx_tokens
+
                     return {
                         "success": True,
                         "response": raw_response or "Guidance generated from verified government catalogue.",
                         "thinking": thinking,
-                        "context": data.get("context"),
+                        "context": ctx_tokens,
                         "model_used": self.model_name
                     }
                 else:
@@ -166,11 +177,13 @@ class OllamaService:
         return (
             "You are Timbre, an AI voice and digital assistant for Indian public welfare and government services.\n"
             f"{lang_instruction}\n\n"
-            "CRITICAL INSTRUCTIONS:\n"
-            "1. Answer ONLY based on the verified government schemes provided below.\n"
-            "2. Never fabricate eligibility, URLs, or fees. Always cite the official portal URL provided.\n"
-            "3. State that eligibility advice is preliminary and subject to physical document verification by authorities.\n"
-            "4. Keep responses concise and suitable for spoken dialogue or quick reading (under 4-5 sentences).\n\n"
+            "MANDATORY CONVERSATIONAL GUIDELINES:\n"
+            "1. Answer ONLY based on the verified government schemes provided below. If official information is missing or unverified, explicitly acknowledge the limitation rather than guessing.\n"
+            "2. Never claim or pretend that an application has been submitted, registered, or approved. Clearly distinguish confirmed criteria from potential preliminary eligibility.\n"
+            "3. State that all eligibility advice is preliminary and subject to physical document verification by official authorities.\n"
+            "4. Ask polite, targeted follow-up questions if critical information (such as age, schooling status, land records, or income) is missing.\n"
+            "5. Explain required documents and next steps using the exact official portal URLs provided.\n"
+            "6. Keep responses conversational, respectful, warm, and concise (2-4 sentences max), perfectly tuned for voice interaction.\n\n"
             f"VERIFIED SCHEMES CATALOGUE CONTEXT:\n{grounding_block}"
         )
 
