@@ -30,6 +30,7 @@ Timbre bridges this divide by delivering **proactive, natural spoken dialogue**.
 | :--- | :--- |
 | [Technical architecture](TECH.md) | System design, two-machine architecture, data schemas, API specifications, and implementation guidance |
 | [Frontend specification](FRONTEND.md) | Frontend implementation plan, folder structure, and UI/state architecture |
+| [Master Synthetic Dataset](data/demo/Timbre_Master_Dataset.xlsx) | Consolidated 8-sheet master workbook (Citizens, Services, Scenarios, Demo Guide, Data Dictionary, Validation Report, Source Inventory) and backend CSVs (`data/demo/`) |
 | [Core features](#d-core-features) | Product capabilities categorized by implementation state |
 | [Real-world use cases](#e-real-world-use-cases) | Example citizen scenarios and conversational outcomes |
 | [Project roadmap](#i-project-roadmap) | Development phases and current milestone progress |
@@ -78,7 +79,7 @@ The following matrix documents the core features of Timbre, clearly identifying 
 
 | # | Feature | Status | Description & Repository Evidence |
 | :-: | :--- | :---: | :--- |
-| **1** | **Synthetic Citizen Management** | **Implemented (Frontend Demo)** | 100% fictional Indian citizen registry displayed in the Flutter console with search, filtering, and safety indicators (`frontend/lib/models/citizen.dart`). |
+| **1** | **Synthetic Citizen Management** | **Implemented (Frontend Demo & Dataset)** | 100% fictional Indian citizen registry displayed in the Flutter console (`frontend/lib/models/citizen.dart`) and consolidated into the 8-sheet Master Excel Workbook (`data/demo/Timbre_Master_Dataset.xlsx`) with companion CSVs and legacy exports (`data/demo/`). |
 | **2** | **Age & Profile Updates** | **Implemented (Frontend Demo)** | Reactive life-event simulation controls allowing operators to adjust citizen dates of birth (`frontend/lib/screens/simulation/simulation_screen.dart`). |
 | **3** | **Age-Related Event Detection** | **Implemented (Frontend Demo) / ASUS Backend In-Progress** | Detection of milestone transitions (e.g. crossing age 18 threshold `MILESTONE_AGE_18`) with automated job triggering. |
 | **4** | **Government-Service Eligibility Evaluation** | **Implemented (Frontend Demo) / ASUS Backend In-Progress** | Programmatic rule engine evaluating qualification across ECI Voter Registration Form 6, MoRTH Parivahan Learner's Licence, and PM-JAY (`frontend/lib/screens/eligibility/`). |

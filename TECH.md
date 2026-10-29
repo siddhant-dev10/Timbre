@@ -126,6 +126,11 @@ flowchart TD
 ├── TECH.md                             # Technical architecture & engineering guide (this file)
 ├── FRONTEND.md                         # Detailed frontend implementation guide & specifications
 │
+├── data/                               # Project data stores & synthetic registries
+│   └── demo/                           # Synthetic demo dataset (100% fictional)
+│       ├── Timbre_Fake_Citizens.xlsx   # 4-sheet formatted Excel workbook (Citizens, Services, Scenarios, Guide)
+│       └── Timbre_Fake_Citizens.csv    # Backend-ready 32-column CSV dataset
+│
 └── frontend/                           # Flutter 3.19+ Administrative Dashboard Application
     ├── pubspec.yaml                    # Flutter dependencies (http, cupertino_icons)
     ├── analysis_options.yaml           # Strict Dart linter rules
@@ -383,6 +388,93 @@ CREATE TABLE official_sources (
     verification_agent VARCHAR(100) NOT NULL,
     verified_facts JSONB NOT NULL                   -- Ground truth checklist of forms, fees, steps
 );
+```
+
+### Synthetic Demo Dataset & Backend Ingestion
+
+Timbre ships with a consolidated, production-grade synthetic master dataset located in `data/demo/`:
+- **`data/demo/Timbre_Master_Dataset.xlsx`**: Single consolidated master Excel workbook containing 8 structured worksheets:
+  1. **`Dashboard`**: Executive summary, KPI indicator counters (100 citizens, 18 schemes, 100 scenarios), dynamic Excel formulas (`=COUNTA(...)`, `=COUNTIF(...)`), and strict synthetic safety notices.
+  2. **`Citizens`**: Exactly 100 fictional citizens across 22 Indian states and UTs with 32 demographic and civic columns (ages 16–85, numeric income, ISO dates, reserved `DEMO-PHONE-xxxx` placeholders, `demo_only=TRUE`).
+  3. **`Government Services`**: 18 verified Indian statutory schemes and civic services with official `.gov.in` / `.nic.in` portal links, eligibility rules, and required document checklists.
+  4. **`Eligibility Scenarios`**: 100 evaluation scenarios mapped 1-to-1 to each citizen (`POTENTIAL`, `NEEDS_VERIFICATION`, `NOT_ELIGIBLE`) with statutory rationales and concrete civic next steps.
+  5. **`Demo Guide`**: Comprehensive walkthroughs for citizen lookup, scheme review, gap checking, milestone simulation, safety controls against accidental dialing, and DPDP Act 2023 migration guidance.
+  6. **`Data Dictionary`**: Complete documentation covering 76 attributes across all workbook sheets (types, examples, allowed values, origins, validation rules).
+  7. **`Validation Report`**: Formal automated QA audit executing 29 checks (structural, integrity, safety, relational, and policy rules) with 100% pass telemetry.
+  8. **`Source Inventory`**: Cryptographic SHA-256 provenance inventory of all data files, generator scripts, and duplicate tracking.
+- **`data/demo/Timbre_Master_Citizens.csv`**: Standalone UTF-8 CSV file containing the exact 32 columns of Sheet 2 for automated ingestion into backend databases.
+- **`data/demo/Timbre_Master_Services.csv`**: Standalone UTF-8 CSV containing the 18 verified statutory government schemes.
+- **`data/demo/Timbre_Master_Scenarios.csv`**: Standalone UTF-8 CSV containing the 100 eligibility evaluation scenarios.
+- **`scripts/generate_timbre_master_excel.py`**: Automated, reproducible generator script to rebuild the master workbook and run the verification suite.
+- **`data/demo/Timbre_Fake_Citizens.xlsx` & `.csv`**: Preserved pre-existing 4-sheet legacy export for backward compatibility.
+
+#### Citizen Record Schema (32 Columns)
+
+| Column | Data Type | Constraints & Format | Example |
+| :--- | :--- | :--- | :--- |
+| `citizen_id` | String | `CIT-0001` through `CIT-0100` (Unique PK) | `CIT-0001` |
+| `full_name` | String | Fictional Indian name | `Aarav Sharma` |
+| `age` | Integer | 16 to 85 (matches DOB at reference date) | `18` |
+| `date_of_birth` | Date (ISO) | `YYYY-MM-DD` | `2008-04-12` |
+| `gender` | String | `MALE`, `FEMALE`, `TRANSGENDER`, `NON-BINARY` | `MALE` |
+| `state` | String | Valid Indian State/UT (22 represented) | `Uttar Pradesh` |
+| `district` | String | Valid district in state | `Lucknow` |
+| `city_or_village` | String | Valid city, town, or village | `Bakshi Ka Talab` |
+| `rural_or_urban` | String | `RURAL` or `URBAN` | `RURAL` |
+| `preferred_language`| String | Hindi, Hinglish, Bengali, Tamil, etc. | `Hindi` |
+| `education_level` | String | Primary through Master's / Vocational | `Higher Secondary (12th)` |
+| `occupation` | String | Student, Farmer, Artisan, etc. | `Student` |
+| `employment_status` | String | Salaried, Self-Employed, Daily Wage, etc. | `Student` |
+| `annual_family_income_inr` | Integer | Numeric INR (no currency symbols) | `120000` |
+| `family_size` | Integer | 1 to 8 | `5` |
+| `marital_status` | String | `Single`, `Married`, `Widowed`, `Divorced` | `Single` |
+| `has_children` | Boolean | `TRUE` or `FALSE` | `FALSE` |
+| `number_of_children`| Integer | 0 to 4 | `0` |
+| `disability_status` | String | `None` or synthetic scenario description | `None` |
+| `student_status` | Boolean | `TRUE` or `FALSE` | `TRUE` |
+| `farmer_status` | Boolean | `TRUE` or `FALSE` | `FALSE` |
+| `senior_citizen_status` | Boolean | `TRUE` (if age >= 60) else `FALSE` | `FALSE` |
+| `demo_phone` | String | `DEMO-PHONE-0001` through `DEMO-PHONE-0100` | `DEMO-PHONE-0001` |
+| `demo_email` | String | Fictional under `@example.com` | `aarav.sharma.demo@example.com` |
+| `life_event` | String | Milestone / civic event description | `Attained age 18 milestone` |
+| `life_event_date` | Date (ISO) | `YYYY-MM-DD` | `2026-04-12` |
+| `potential_government_services` | String | Semicolon-delimited service codes | `VOTER_ID_ECI; LEARNERS_LICENCE_MORTH` |
+| `eligibility_notes` | Text | Concise statutory qualification notes | `Eligible for first-time voter enrollment...` |
+| `required_documents`| Text | Semicolon-delimited required documents | `Age proof; Residence proof; Photo` |
+| `application_channel` | String | Official portal / CSC channel | `Online (voters.eci.gov.in & parivahan.gov.in)` |
+| `verification_status`| String | `VERIFIED_MOCK`, `PENDING_DOCS`, `ELIGIBLE_PROVISIONAL` | `ELIGIBLE_PROVISIONAL` |
+| `demo_only` | Boolean | Immutable `TRUE` safety invariant | `TRUE` |
+
+#### Loading CSV into Backend
+
+##### Option A: Python / Pandas & FastAPI
+```python
+import pandas as pd
+from datetime import date
+
+# 1. Load synthetic CSV dataset
+csv_path = "data/demo/Timbre_Fake_Citizens.csv"
+df = pd.read_csv(csv_path)
+
+# 2. Strict prototype safety check
+assert (df["demo_only"] == True).all(), "CRITICAL: Non-demo records detected in test environment!"
+assert df["demo_phone"].str.startswith("DEMO-PHONE-").all(), "CRITICAL: Unreserved phone format detected!"
+
+print(f"Loaded {len(df)} synthetic citizen records into memory.")
+
+# 3. Example: Filter citizens reaching milestone age 18
+adults_18 = df[df["age"] == 18]
+print(f"Found {len(adults_18)} citizens turning 18 eligible for Voter ID & Learner Licence.")
+```
+
+##### Option B: PostgreSQL / Supabase Table Ingestion
+```sql
+-- Ingest synthetic records into citizens table
+\copy citizens(citizen_id, full_name, age, date_of_birth, gender, state, district, city_or_village, rural_or_urban, preferred_language, education_level, occupation, employment_status, annual_family_income_inr, family_size, marital_status, has_children, number_of_children, disability_status, student_status, farmer_status, senior_citizen_status, demo_phone, demo_email, life_event, life_event_date, potential_government_services, eligibility_notes, required_documents, application_channel, verification_status, demo_only) FROM 'data/demo/Timbre_Fake_Citizens.csv' WITH (FORMAT csv, HEADER true);
+
+-- Add safety constraint to prevent real phone numbers or live records
+ALTER TABLE citizens ADD CONSTRAINT chk_fictional_demo_only CHECK (demo_only = TRUE);
+ALTER TABLE citizens ADD CONSTRAINT chk_demo_phone_placeholder CHECK (demo_phone LIKE 'DEMO-PHONE-%');
 ```
 
 ---
