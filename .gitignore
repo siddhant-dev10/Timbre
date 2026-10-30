@@ -1,0 +1,49 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.keystore
+*.secret
+*.secrets
+key.properties
+**/key.properties
+secrets.json
+**/secrets.json
+credentials.json
+**/credentials.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+
+# Local databases and logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# Flutter / Dart generated files
+**/.dart_tool/
+**/build/
+**/ephemeral/
+**/Generated.xcconfig
+**/flutter_export_environment.sh
+**/local.properties
+**/GeneratedPluginRegistrant.*
+
+# Editor and OS
+.DS_Store
+.idea/
+.vscode/
+*.iml

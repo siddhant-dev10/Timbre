@@ -1,0 +1,32 @@
+{
+  "generated_at_utc": "2026-10-29T06:41:02Z",
+  "dataset": "Timbre_Fake_Citizens.csv",
+  "synthetic_dataset_assertion": "All records carry demo_only and placeholder contact markers; this validation cannot independently prove how source data was created.",
+  "reference_date": "2026-10-28",
+  "csv_sha256": "bbddc065225da7581bcc8d88db5337bc2340565a2629efba917cdd2141ba76ee",
+  "csv_record_count": 100,
+  "csv_field_count": 32,
+  "xlsx_record_count": 100,
+  "xlsx_field_count": 31,
+  "xlsx_column_aliases_checked": [
+    "id/citizen_id",
+    "full_name/name",
+    "synthetic_family_income_inr/synthetic_family_income"
+  ],
+  "xlsx_sheets": [
+    "DEMO_SAFETY_WARNING",
+    "Fake_Citizens_100"
+  ],
+  "duplicate_identifier_count": 0,
+  "errors": {},
+  "error_count": 0,
+  "warnings": {
+    "catalogue_entries_need_human_review": 10,
+    "source_content_needs_human_review": 1
+  },
+  "warning_count": 11,
+  "catalogue_review_pending_count": 10,
+  "action_taken": "Original CSV and XLSX preserved. No source rows were changed. Report contains aggregate counts only.",
+  "eligibility_source_limit": "Government source URLs are checked for HTTPS and government-domain form only. Eligibility rules, fees, required documents, deadlines, and links must be manually checked against the current official sources before relying on them.",
+  "status": "PASS"
+}

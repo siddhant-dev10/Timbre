@@ -1,0 +1,58 @@
+{
+  "run_date": "2026-10-29",
+  "mode": "local synthetic dry-run",
+  "overall_status": "PARTIAL",
+  "dataset": {
+    "source": "data/demo/Timbre_Fake_Citizens.csv",
+    "record_count": 100,
+    "synthetic_markers_passed": true,
+    "selected_record_count": 1,
+    "database_seed_verified": true
+  },
+  "simulated_event": {
+    "live_startup_rehearsal": "LOCAL_STARTUP_SMOKE",
+    "mocked_end_to_end_fixture": "MILESTONE_AGE_18"
+  },
+  "mocked_controlled_demo": {
+    "status": "PASS",
+    "steps": [
+      "Selected one synthetic profile from the isolated test database.",
+      "Simulated MILESTONE_AGE_18 using an explicit test fixture.",
+      "Generated a grounded chat response with a mocked NVIDIA provider.",
+      "Generated mock MP3 bytes with a mocked ElevenLabs provider.",
+      "Recorded and reviewed a consent-checked local call dry-run."
+    ],
+    "ai_and_audio_are_mocked": true,
+    "playback_tested": false
+  },
+  "ai": {
+    "live_status": "FAIL",
+    "http_status": 403,
+    "latency_ms": 582,
+    "response_generated": false
+  },
+  "voice": {
+    "live_status": "FAIL",
+    "english_http_status": 401,
+    "hindi_http_status": 401,
+    "audio_generated": false,
+    "playback_tested": false
+  },
+  "phone_demo": {
+    "dry_run_status": "PASS",
+    "dry_run_http_status": 201,
+    "real_call_attempted": false,
+    "sms_attempted": false,
+    "full_recipient_number_persisted": false,
+    "masked_recipient_number_stored": true,
+    "recipient_consent_required": true,
+    "synthetic_record_required": true,
+    "duplicate_request_blocked": true
+  },
+  "human_review_required_before_any_real_call": true,
+  "notes": [
+    "The local server startup smoke used a temporary SQLite database; the existing citizen rows were not touched.",
+    "Provider errors were sanitized; no credentials or record-level personal data are included.",
+    "The complete AI-to-voice demonstration remains incomplete until provider access is restored."
+  ]
+}
