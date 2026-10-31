@@ -2,6 +2,8 @@
 
 Timbre is an AI-powered civic assistance platform designed to help Indian citizens discover government welfare schemes, understand statutory eligibility, identify required documents, and navigate application procedures in natural **Hindi**, **Hinglish**, and **English**.
 
+> 📖 **Comprehensive Project Vision & Voice Calling Roadmap:** For an in-depth breakdown of the civic challenges faced by 1.4 billion Indian citizens, Timbre's multi-lingual RAG solutions, the future inbound & outbound voice call agent architecture, supported statutory schemes, and project acknowledgements, see [**`TIMBRE.md`**](TIMBRE.md).
+
 For the current MVP, **WhatsApp text messaging** is the primary interface. Citizens can text questions (e.g. *"Main 18 saal ka ho gaya hoon. Mujhe kaun se government documents banwane chahiye?"*), and Timbre responds naturally, asks interactive clarifying questions, cites verified government portals, and provides step-by-step guidance.
 
 The long-term vision includes **AI-powered inbound voice calling** for citizens who face smartphone or literacy barriers. All voice and telephony components are preserved as a future feature with strict safety locks (`ENABLE_REAL_CALLS=false`).
